@@ -1,7 +1,7 @@
-# zero-hero
+## zero-hero
 working through Andrej Karpathy's neural-net/gpt starter 
 
-["nn-zero-to-hero"](https://github.com/karpathy/nn-zero-to-hero )
+["nn-zero-to-hero"](https://github.com/karpathy/nn-zero-to-hero)
 
 ### Description
 
@@ -31,24 +31,8 @@ nn.Linear etc
 
 this shows there no real magic going on - it's just weight tensors and dot products underneath
 
-### A few things I might change
 
-the lectures start using torch and introduce new features at various points as they progress.
-
-now there are plenty of introduction to torch tutorials but it might have been worthwhile to go over 
-a block of things relevant to each section at once
-
-cleanup the jupyter notebooks a bit, maybe use markdown cells every now and then to make things clearer
-
-the names.txt file runs past its usefulness too early:
-
-generating random names is a nice way to ease in but as the networks get deeper and more complex
-their ability to generate 'new' names doesn't progress very far.
-
-I'd introduce tiny-shakespeare earlier, the smaller networks start producing weird shakespeare-ish-ness
-earlier than one might expect...
-
-### What's this?
+## What's this?
 
 a resource for me chiefly, my own work through as I watch the lectures: this isn't linear.
 * at times I'd watch some, go away, open up a jupyter notebook try and recreate what I thought I remembered
@@ -57,9 +41,56 @@ a resource for me chiefly, my own work through as I watch the lectures: this isn
 
 I'd used tensorflow mostly before so this is also a good way to get into torch:
 
+
+## The sections
+
+### Torch Tensors
 I've created some torch workout workbooks as well to get a better understanding of what's going on in torch
 * when new tensors are created
 * how to take slices without new tensor memeory
 * when to reshape or resize
+[tensors](torchbooks)
+
+### Bigrams
+Looking at bigram models for creating names given a training set
+
+Work through the bigram lecture and review after
+[bigrams](bigram)
+
+
+
+### A few things I might change
+
+I'll comment more in the sections but briefly:
+
+#### how zero is it? 
+* It's certainly a really good review of material
+* There's a lack of motivationy, insighty type discussion
+
+It's not spoon-fed certainly, there are plenty of references, papers you can look up etc
+
+and of course there are the stanford online lectures if you need more depth
+
+so to get the most out of it there's a fair bit of homework
+
+#### uses torch but not the best introduction
+
+the lectures start using torch and introduce new features at various points as they progress.
+
+now there are plenty of introduction to torch tutorials but it might have been worthwhile to go over 
+a block of things relevant to each section at once
+
+#### notebooks are more scratch-books than explanations
+
+cleanup the jupyter notebooks a bit, maybe use markdown cells every now and then to make things clearer
+
+#### the names file
+the names.txt file runs past its usefulness too early:
+
+generating random names is a nice way to ease in but as the networks get deeper and more complex
+their ability to generate 'new' names doesn't progress very far.
+
+I'd introduce tiny-shakespeare earlier, the smaller networks start producing weird shakespeare-ish-ness
+earlier than one might expect...
 
 
