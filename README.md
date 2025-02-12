@@ -5,7 +5,7 @@ working through Andrej Karpathy's neural-net/gpt starter
 
 ### Description
 
-The lectures build right from a bear-bones neural network architecture towards a gpt like model
+The lectures build right from a bare bones neural network architecture towards a gpt like model
 
 The jupyter notebooks are written follow-along style
 
@@ -21,7 +21,7 @@ the model then tries to 'generate' names from these counted occurrences
 
 the bigram model is then re-stated as a neural-network 
 
-this I think works really well: the neural-network 'learns' the approximately same weights as the 
+this I think works really well: the neural-network 'learns' approximately the same weights as the 
 original model - so our neural net does at least as well as the basic model
 
 ### Torch 
@@ -40,7 +40,6 @@ a resource for me chiefly, my own work through as I watch the lectures: this isn
 * finish the lecture - go back, see what made sense now etc
 
 I'd used tensorflow mostly before so this is also a good way to get into torch:
-
 
 ## The sections
 
@@ -64,6 +63,16 @@ now we use a higher dimensional space to represent the character and allow the m
 the position of the characters in the space
 
 [embeddings](embeddings)
+
+### Sequences
+Embeddings by themselves don't really improve our loss
+
+to do that we start looking at more than one letter preceding the prediction
+
+we also start to look at how the weights and bias initialize and look at what's 
+happening inside our neurons as we train.
+
+[sequences](sequences)
 
 ### A few things I might change
 
