@@ -57,7 +57,13 @@ Looking at bigram models for creating names given a training set
 Work through the bigram lecture and review after
 [bigrams](bigram)
 
+### Embeddings
+Previously we've used a character to int embedding 'a'=>1, 'b'->2 etc
 
+now we use a higher dimensional space to represent the character and allow the model during training to adjust
+the position of the characters in the space
+
+[embeddings](embeddings)
 
 ### A few things I might change
 
@@ -65,7 +71,7 @@ I'll comment more in the sections but briefly:
 
 #### how zero is it? 
 * It's certainly a really good review of material
-* There's a lack of motivationy, insighty type discussion
+* There's a lack of intuition, motivationy, insighty type discussion (Andrej has plenty of that elsewhere so it seems a little odd, though he's going through a lot here)
 
 It's not spoon-fed certainly, there are plenty of references, papers you can look up etc
 
