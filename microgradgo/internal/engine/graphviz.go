@@ -3,13 +3,14 @@ package engine
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"strconv"
 
 	"github.com/goccy/go-graphviz"
 	"github.com/goccy/go-graphviz/cgraph"
 )
 
-// generates graph from Value recursively examining child nodes and returns Dot graph rendering of this graph
+// generates graph from Value recursively examining parent nodes and returns Dot graph rendering of this graph
 func DotGraph(value Value) (string, error) {
 	ctx := context.Background()
 	g, err := graphviz.New(ctx)
@@ -46,11 +47,11 @@ func DotGraph(value Value) (string, error) {
 	return buf.String(), nil
 }
 
-func recurseValuesGraph(graph *graphviz.Graph, parentValue Value, parentNode *cgraph.Node) error {
-	if (len(parentValue.prev) > 0) && parentValue.Op != "" {
+func recurseValuesGraph(graph *graphviz.Graph, childValue Value, childNode *cgraph.Node) error {
+	if (len(childValue.prev) > 0) && childValue.Op != "" {
 		// "merge" edges by creating tiny opnode and edges from childNodes to opNode and from opNode to parentNode
 		// bit of an effort to "hide" the opNode. Will produce graphviz dot warnings
-		opNode, err := graph.CreateNodeByName("op" + parentValue.Label)
+		opNode, err := graph.CreateNodeByName("op" + childValue.Label)
 		if err != nil {
 			return err
 		}
@@ -59,25 +60,25 @@ func recurseValuesGraph(graph *graphviz.Graph, parentValue Value, parentNode *cg
 		opNode.SetFixedSize(true)
 		opNode.SetStyle(cgraph.NodeStyle("invis"))
 
-		opEdge, err := graph.CreateEdgeByName(parentValue.Op, opNode, parentNode)
+		opEdge, err := graph.CreateEdgeByName(childValue.Op, opNode, childNode)
 		if err != nil {
 			return err
 		}
-		opEdge.SetLabel(parentValue.Op)
+		opEdge.SetLabel(childValue.Op)
 		
-		for _, childValue := range parentValue.prev {
-			childNode, err := graph.CreateNodeByName(childValue.Label + " | " + strconv.FormatFloat(childValue.Data, 'f', -1, 64))
+		for _, parentValue := range childValue.prev {
+			parentNode, err := graph.CreateNodeByName(fmt.Sprintf("%s | %.4f", parentValue.Label, parentValue.Data))
 			if err != nil {
 				return err
 			}
 	
-			e, err := graph.CreateEdgeByName("", childNode, opNode)
+			e, err := graph.CreateEdgeByName("", parentNode, opNode)
 			if err != nil {
 				return err
 			}
 			e.SetLabel("")
 			e.SetDir(cgraph.NoneDir)
-			recurseValuesGraph(graph, childValue, childNode)
+			recurseValuesGraph(graph, parentValue, parentNode)
 		}
 	}
 	return nil

@@ -24,7 +24,7 @@ func main() {
 	fmt.Printf("c %v\n", c)
 	d := a.Add(b, "d")
 	e := a.Div(b, "e")
-	f := a.Pow(b, "f")
+	f := a.Pow(c, "f")
 	g := d.Mul(e, "g")
 	h := e.Sub(f, "h")
 	L := g.Add(h, "L")
