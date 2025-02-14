@@ -1,5 +1,6 @@
 import re
 import random
+import torch
 
 class BookReader:
 
@@ -69,3 +70,9 @@ class BookReader:
         self.decode = lambda l: ''.join([self.itos[i] for i in l]) # decoder: take a list of integers, output a string
 
         self.data = [self.encode(self.train), self.encode(self.dev), self.encode(self.test)]
+
+    def get_batch(self, data, context_length=1, batch_size=5):
+        # generate a small batch of data of inputs x and targets y
+        ix = torch.randint(len(data) - context_length, (batch_size,))
+        b = torch.stack([data[i:i+context_length] for i in ix])
+        return b

@@ -1,5 +1,5 @@
 import string
-from random import randrange
+from random import randrange, randint
 
 class NameSampling:
 
@@ -21,11 +21,25 @@ class NameSampling:
 
         self.names_length = len(self.names)
 
-    def sample_names(self, size=5):
+        self.train, self.dev, self.test = [], [], []
+
+        for i in range(self.names_length):
+            match randint(0, 10):
+                case 0:
+                    self.test.append(self.names[i])
+                case 1:
+                    self.dev.append(self.names[i])
+                case _:
+                    self.train.append(self.names[i])
+
+    def sample_names(self, size=5, sample_set=None):
+        if sample_set is None:
+            sample_set = self.train
+        sample_length = len(sample_set)
         batch_names = []
         for i in range(size):
-            ni = randrange(self.names_length-1)
-            name = self.names[ni]
+            ni = randrange(sample_length-1)
+            name = sample_set[ni]
             batch_names.append(name)
         return batch_names
 
