@@ -89,7 +89,7 @@ func RecurseValuesGradient(node *Value) error {
 			node.Gradient.ParentA.Gradient = parentB.Data * math.Pow(parentA.Data, parentB.Data-1)
 			node.Gradient.ParentB.Gradient = math.Log(parentA.Data) * math.Pow(parentA.Data, parentB.Data)
 		default:
-			errors.New(fmt.Sprintf("Unknown op %s for node  %v", node.Op, node))
+			return errors.New(fmt.Sprintf("Unknown op %s for node  %v", node.Op, node))
 		}
 		node.Gradient.ParentA.Label = parentA.Label
 		node.Gradient.ParentB.Label = parentB.Label
