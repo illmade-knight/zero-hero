@@ -7,6 +7,12 @@ working through Andrej Karpathy's neural-net/gpt starter
 
 The lectures build right from a bare bones neural network architecture towards a gpt like model
 
+Up until the end the models are character level - i.e the input is batches of characters with predictions
+also at a character level. 
+
+Only after introducing the attention mechanism does Andrej (reluctantly) introduce the byte encoding of tokens
+by most (all?) LLM base models
+
 The jupyter notebooks are written follow-along style
 
 i.e they are *not* lessons/lectures in themselves
@@ -42,6 +48,13 @@ a resource for me chiefly, my own work through as I watch the lectures: this isn
 I'd used tensorflow mostly before so this is also a good way to get into torch:
 
 ## The sections
+* [tensors](torchbooks)
+* [bigrams](bigram)
+* [embeddings](embeddings)
+* [sequences](sequences)
+* [torch.nn](nn)
+* [wavenet](context)
+* [attention](attention)
 
 ### Torch Tensors
 I've created some torch workout workbooks as well to get a better understanding of what's going on in torch
@@ -74,7 +87,32 @@ happening inside our neurons as we train.
 
 [sequences](sequences)
 
-### A few things I might change
+### Torch nn
+We develop the ideas from sequence further but start to use the torch.nn layers.
+This cleans things up a bit as we try to look beyond single word (name) structures 
+- first by putting our names together in a continuous text
+- next by reading a book and trying to recreate its words and structure
+
+[nn](nn)
+
+### Wavenet(ish)
+Based on an audio sample model for combining waveform snippets - 
+the Wavenet architecture allows us to use a kind of dilation-layer 
+
+This basically a .view change followed by a linear layer that fuses Token pairs 
+
+By applying successive dilations we can look at larger and larger contexts
+
+[context](context)
+
+### Attention
+The big one! 
+
+well the idea that allowed the scaling up to today's LLMs
+
+[attention](attention)
+
+## A few things I might change
 
 I'll comment more in the sections but briefly:
 
