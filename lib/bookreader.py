@@ -5,47 +5,38 @@ import torch
 class BookReader:
 
     
-    def __init__(self, lower=True, pattern = r'[^\d+a-zA-Z \n?!]', chunk_size = 25):
+    def __init__(self, lower=True, pattern = r'[^\d+a-zA-Z \n?!]', chunk_size = 1000):
         self.pattern = pattern
         self.lower = lower
         self.chunk_size = chunk_size
         self.vocab_size = 0
+        self.batch_data = []
 
     def read(self, *books):
-        
-        lines = []
+
         for book in books:
             with open(book, 'r', encoding='utf-8') as f:
-                lines += f.readlines()
+                lines = f.readlines()
 
         self.all_lines = []
         self.train = []
         self.dev   = []
         self.test  = []
 
-        self.chunk = []
+        chunk = []
         for line in lines:
-            # we seemed to be getting excessive new lines in some books
-            if line == '\n' and has_newline:
-                has_newline = False
-                continue
-            else:
-                has_newline = True
-            line = re.sub(r'(\n)+', '\n', line)
-            
             self.all_lines += line
-            self.chunk += line
+            chunk += line
 
-            if len(self.chunk) % self.chunk_size == 0:
+            if len(chunk) > self.chunk_size:
                 match random.randint(0, 10):
                     case 0:
-                        self.test += self.chunk
+                        self.test += chunk
                     case 1:
-                        self.dev += self.chunk
+                        self.dev += chunk
                     case _:
-                        self.train += self.chunk
-
-                self.chunk = []
+                        self.train += chunk
+                chunk = []
 
         self.text = re.sub(self.pattern, ' ', "".join(self.all_lines))
         self.train = re.sub(self.pattern, ' ', "".join(self.train))
@@ -70,9 +61,13 @@ class BookReader:
         self.decode = lambda l: ''.join([self.itos[i] for i in l]) # decoder: take a list of integers, output a string
 
         self.data = [self.encode(self.train), self.encode(self.dev), self.encode(self.test)]
+        self.batch_data = torch.tensor(self.data[0])
 
-    def get_batch(self, data, context_length=1, batch_size=5):
+    def sample_batch(self, batch_size=5, context_length=5):
         # generate a small batch of data of inputs x and targets y
-        ix = torch.randint(len(data) - context_length, (batch_size,))
-        b = torch.stack([data[i:i+context_length] for i in ix])
-        return b
+        ix = torch.randint(len(self.batch_data) - context_length - 1, (batch_size,))
+        b = torch.stack([self.batch_data[i:i + context_length + 1] for i in ix])
+        x, y = b[:,:context_length], b[:, context_length:context_length+1]
+        return x, y.view(-1)
+
+

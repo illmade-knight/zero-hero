@@ -47,7 +47,7 @@ class NameSampling:
         samples = []
         max_length = len(word)
         fill = '.' * self.context_length
-        for i in range(1,max_length):
+        for i in range(1, max_length):
             st = max(0, i-self.context_length)
             filled = fill[i:] + word[st:i]
             samples.append(filled[:self.context_length])
@@ -63,3 +63,12 @@ class NameSampling:
             ys += y
 
         return xs, ys
+
+    def create_eval_data(self):
+        d = []
+        for word in self.dev:
+            w = [0 for _ in range(self.context_length-1)]
+            for c in word:
+                w.append(self.stoi[c])
+            d.append(w)
+        return d
