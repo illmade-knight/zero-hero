@@ -1,0 +1,4 @@
+*.dot
+mnist_dataset/*.csv
+mnist_dataset/model.json
+graphs/graph.png

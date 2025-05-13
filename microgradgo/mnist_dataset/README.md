@@ -1,0 +1,1 @@
+Use `make mnistinit` to download mnist training and testing set from https://pjreddie.com/projects/mnist-in-csv/
